@@ -30,7 +30,7 @@ public sealed class CloudsSystem : ModSystem
     private static RenderTarget2D? OccludersTarget;
     private static RenderTarget2D? LightTarget;
 
-    private const float LightTargetScale = .25f;
+    private const float LightTargetScale = 0.25f;
 
     private static RenderTargetBinding[]? PreviousTargets;
 

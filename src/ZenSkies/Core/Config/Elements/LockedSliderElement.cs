@@ -17,7 +17,7 @@ public abstract class LockedSliderElement<T> : PrimitiveRangeElement<T>, ILocked
 
     private const float SliderWidth = 167f;
 
-    private const float LockedBackgroundMultiplier = .4f;
+    private const float LockedBackgroundMultiplier = 0.4f;
 
     private static readonly Color LockedGradient = new(40, 40, 40);
 
@@ -99,7 +99,7 @@ public abstract class LockedSliderElement<T> : PrimitiveRangeElement<T>, ILocked
 
         Rectangle rectangle = new(
             (int)IngameOptions.valuePosition.X,
-            (int)IngameOptions.valuePosition.Y - (int)(colorBar.Height * .5f),
+            (int)IngameOptions.valuePosition.Y - (int)(colorBar.Height * 0.5f),
             colorBar.Width,
             colorBar.Height);
 
@@ -117,9 +117,9 @@ public abstract class LockedSliderElement<T> : PrimitiveRangeElement<T>, ILocked
         Vector2 lockOffset = new(0, -4);
 
         if (IsLocked)
-            spriteBatch.Draw(lockIcon, inner.Center() + lockOffset, null, Color.White, 0f, lockIcon.Size() * .5f, 1f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(lockIcon, inner.Center() + lockOffset, null, Color.White, 0f, lockIcon.Size() * 0.5f, 1f, SpriteEffects.None, 0f);
         else
-            spriteBatch.Draw(colorSlider, new(destinationRectangle.X + 5f + (SliderWidth * perc), destinationRectangle.Y + 8f), null, Color.White, 0f, colorSlider.Size() * .5f, 1f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(colorSlider, new(destinationRectangle.X + 5f + (SliderWidth * perc), destinationRectangle.Y + 8f), null, Color.White, 0f, colorSlider.Size() * 0.5f, 1f, SpriteEffects.None, 0f);
 
         IngameOptions.inBar = isHovering;
     }

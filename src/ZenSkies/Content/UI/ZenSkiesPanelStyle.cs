@@ -27,7 +27,7 @@ public sealed class ZenSkiesPanelStyle : ModPanelStyleExt
         private const int frametime = 8;
         private const int frames = 4;
 
-        private const float lifetime_increment = .003f;
+        private const float lifetime_increment = 0.003f;
 
         private const float wind_speed = 6.5f;
 
@@ -88,9 +88,9 @@ public sealed class ZenSkiesPanelStyle : ModPanelStyleExt
             {
                 Vector2 vector3 = new(newVelocity.X, -.2f);
 
-                newVelocity.Y = .1f;
+                newVelocity.Y = 0.1f;
 
-                vector3.X *= .94f;
+                vector3.X *= 0.94f;
 
                 newVelocity.X = vector3.X;
                 newPosition.X += newVelocity.X;
@@ -120,7 +120,7 @@ public sealed class ZenSkiesPanelStyle : ModPanelStyleExt
 
             Rectangle frame = texture.Frame(1, frames, 0, Frame);
 
-            Vector2 origin = frame.Size() * .5f;
+            Vector2 origin = frame.Size() * 0.5f;
 
             spriteBatch.Draw(PanelStyleTextures.Leaf, Position, frame, Color.White, Rotation, origin, 1f, SpriteEffects.None, 0f);
         }
@@ -143,7 +143,7 @@ public sealed class ZenSkiesPanelStyle : ModPanelStyleExt
     private static readonly Vector2 branch_origin = new(-12, 47);
 
     private const float branch_rotation_frequency = 2.1f;
-    private const float branch_rotation_amplitude = .06f;
+    private const float branch_rotation_amplitude = 0.06f;
 
     private static readonly Color foreground_gradient = new(117, 81, 47, 0);
 
@@ -179,7 +179,7 @@ public sealed class ZenSkiesPanelStyle : ModPanelStyleExt
 
     private static bool hasGeneratedStars = false;
 
-    private const float star_rotation_speed = .00045f;
+    private const float star_rotation_speed = 0.00045f;
     private static float starRotation;
 
     // Bird
@@ -286,7 +286,7 @@ public sealed class ZenSkiesPanelStyle : ModPanelStyleExt
     {
         Vector2 position =
             new(Main.rand.NextFloat(leaf_spawn_offset_min, leaf_spawn_offset_max),
-            Main.rand.NextFloat(-size.Y * .3f, size.Y));
+            Main.rand.NextFloat(-size.Y * 0.3f, size.Y));
 
         leaves.Spawn(new(position, velocity));
     }
@@ -302,9 +302,9 @@ public sealed class ZenSkiesPanelStyle : ModPanelStyleExt
 
         Vector2 position =
             new(Main.rand.NextFloat(wind_spawn_offset_min, wind_spawn_offset_max),
-            Main.rand.NextFloat(-size.Y * .1f, size.Y * 1.1f));
+            Main.rand.NextFloat(-size.Y * 0.1f, size.Y * 1.1f));
 
-        winds.Spawn(new(position, .6f, false));
+        winds.Spawn(new(position, 0.6f, false));
     }
 
     private static void UpdateStars(Vector2 size)
@@ -319,7 +319,7 @@ public sealed class ZenSkiesPanelStyle : ModPanelStyleExt
 
         hasGeneratedStars = true;
 
-        Vector2 center = new(size.X * .5f, size.Y);
+        Vector2 center = new(size.X * 0.5f, size.Y);
 
         float radius = center.Length() * Main.UIScale;
 
@@ -346,7 +346,7 @@ public sealed class ZenSkiesPanelStyle : ModPanelStyleExt
             Vector2 branchPosition =
                 position +
                 branch_position +
-                (Vector2.UnitY * size.Y * .5f);
+                (Vector2.UnitY * size.Y * 0.5f);
 
             float branchRotation = MathF.Sin(Main.GlobalTimeWrappedHourly * branch_rotation_frequency) * branch_rotation_amplitude;
 
@@ -548,14 +548,14 @@ public sealed class ZenSkiesPanelStyle : ModPanelStyleExt
         // Stars
         spriteBatch.Begin(snapshot with { TransformMatrix = StarMatrix(size) });
         {
-            StarRendering.DrawStars(spriteBatch, .2f, -starRotation, stars, SkyConfig.Instance.StarStyle);
+            StarRendering.DrawStars(spriteBatch, 0.2f, -starRotation, stars, SkyConfig.Instance.StarStyle);
         }
         spriteBatch.End();
 
         // Branch
         spriteBatch.Begin(snapshot with { SamplerState = SamplerState.PointClamp });
         {
-            Vector2 branchPosition = branch_position + (Vector2.UnitY * size.Y * .5f);
+            Vector2 branchPosition = branch_position + (Vector2.UnitY * size.Y * 0.5f);
 
             float branchRotation = MathF.Sin(Main.GlobalTimeWrappedHourly * branch_rotation_frequency) * branch_rotation_amplitude;
 
@@ -566,7 +566,7 @@ public sealed class ZenSkiesPanelStyle : ModPanelStyleExt
         static Matrix StarMatrix(Vector2 size)
         {
             Matrix rotation = Matrix.CreateRotationZ(starRotation);
-            Matrix offset = Matrix.CreateTranslation(new(size.X * .5f, size.Y, 0f));
+            Matrix offset = Matrix.CreateTranslation(new(size.X * 0.5f, size.Y, 0f));
 
             return Matrix.Identity * rotation * offset;
         }

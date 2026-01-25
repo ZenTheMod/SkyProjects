@@ -133,9 +133,9 @@ public static class Easings
     public static float OutPolynomial(float t, float e) =>
         1 - InPolynomial(1 - t, e);
     public static float InOutPolynomial(float t, float e) =>
-        t < .5 ?
-            InPolynomial(t * 2, e) * .5f :
-            1 - InPolynomial((1 - t) * 2, e) * .5f;
+        t < 0.5 ?
+            InPolynomial(t * 2, e) * 0.5f :
+            1 - InPolynomial((1 - t) * 2, e) * 0.5f;
 
     #endregion
 
@@ -157,9 +157,9 @@ public static class Easings
     public static float OutExpo(float t) =>
         1 - InExpo(1 - t);
     public static float InOutExpo(float t) =>
-        t < .5 ? 
-            InExpo(t * 2) * .5f :
-            1 - InExpo((1 - t) * 2) * .5f;
+        t < 0.5 ? 
+            InExpo(t * 2) * 0.5f :
+            1 - InExpo((1 - t) * 2) * 0.5f;
 
     #endregion
 
@@ -170,9 +170,9 @@ public static class Easings
     public static float OutCirc(float t) =>
         1 - InCirc(1 - t);
     public static float InOutCirc(float t) =>
-        t < .5 ?
-            InCirc(t * 2) * .5f :
-            1 - InCirc((1 - t) * 2) * .5f;
+        t < 0.5 ?
+            InCirc(t * 2) * 0.5f :
+            1 - InCirc((1 - t) * 2) * 0.5f;
 
     #endregion
 
@@ -185,14 +185,14 @@ public static class Easings
     public static float InOutElastic(float t) =>
         OutElastic(t, default);
 
-    public static float InElastic(float t, float p = .3f) =>
+    public static float InElastic(float t, float p = 0.3f) =>
         1 - OutElastic(1 - t, p);
-    public static float OutElastic(float t, float p = .3f) =>
+    public static float OutElastic(float t, float p = 0.3f) =>
         MathF.Pow(2, -10 * t) * MathF.Sin((t - p / 4) * (2 * MathF.PI) / p) + 1;
-    public static float InOutElastic(float t, float p = .3f) =>
-        t < .5 ?
-            InElastic(t * 2, p) * .5f :
-            1 - InElastic((1 - t) * 2, p) * .5f;
+    public static float InOutElastic(float t, float p = 0.3f) =>
+        t < 0.5 ?
+            InElastic(t * 2, p) * 0.5f :
+            1 - InElastic((1 - t) * 2, p) * 0.5f;
 
     #endregion
 
@@ -210,9 +210,9 @@ public static class Easings
     public static float OutBack(float t, float s = 1.7f) =>
         1 - InBack(1 - t, s);
     public static float InOutBack(float t, float s = 1.7f) =>
-        t < .5 ?
-            InBack(t * 2, s) * .5f :
-            1 - InBack((1 - t) * 2, s) * .5f;
+        t < 0.5 ?
+            InBack(t * 2, s) * 0.5f :
+            1 - InBack((1 - t) * 2, s) * 0.5f;
 
     #endregion
 }

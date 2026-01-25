@@ -22,14 +22,14 @@ public static class CalamityFablesCompat
     private static readonly int[] edge_case_styles =
         [1, 2, 8, 9, 10, 13, 14];
 
-    private const float moon_phase_rotation = .125f;
+    private const float moon_phase_rotation = 0.125f;
 
     private static readonly Color dark_atmosphere = new(13, 69, 96);
 
     private const float shatter_scale = 1.35f;
 
     private static readonly Vector4 atmosphere = Vector4.Zero;
-    private static readonly Vector4 atmosphere_shadow = new(.1f, .02f, .06f, 1f);
+    private static readonly Vector4 atmosphere_shadow = new(.1f, 0.02f, 0.06f, 1f);
 
     private static readonly Vector2 shatter_target_size = new(200);
 
@@ -129,7 +129,7 @@ public static class CalamityFablesCompat
             null,
             Color.White,
             rotation,
-            moon.Size() * .5f,
+            moon.Size() * 0.5f,
             size,
             SpriteEffects.None,
             0f
@@ -192,7 +192,7 @@ public static class CalamityFablesCompat
             null,
             Color.White,
             rotation,
-            targetSize * .5f,
+            targetSize * 0.5f,
             size,
             SpriteEffects.None,
             0f
@@ -230,7 +230,7 @@ public static class CalamityFablesCompat
             null,
             moonColor,
             rotation,
-            moon.Size() * .5f,
+            moon.Size() * 0.5f,
             size,
             SpriteEffects.None,
             0f

@@ -13,8 +13,8 @@ namespace ZenSkies.Common.Systems.Sky;
 [Autoload(Side = ModSide.Client)]
 internal static class SunAndMoonFlinging
 {
-    private static readonly Vector2 velocity_multiplier = new(.92f, .85f);
-    private const float mod_multiplier = .976f;
+    private static readonly Vector2 velocity_multiplier = new(.92f, 0.85f);
+    private const float mod_multiplier = 0.976f;
 
     private static Vector2 sunMoonOldPosition;
 

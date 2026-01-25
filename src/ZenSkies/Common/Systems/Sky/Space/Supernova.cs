@@ -10,14 +10,14 @@ public sealed class Supernova : IStarModifier
 {
     #region Private Fields
 
-    private const float ContractIncrement = .002f;
-    private const float ExpandIncrement = .0005f;
+    private const float ContractIncrement = 0.002f;
+    private const float ExpandIncrement = 0.0005f;
 
-    private const float MinStarScale = .3f;
+    private const float MinStarScale = 0.3f;
     private const float MaxStarScale = 1.25f;
 
     private const float SmallSpeedMultiplier = 1.5f;
-    private const float BigSpeedMultiplier = .5f;
+    private const float BigSpeedMultiplier = 0.5f;
 
     private readonly float SpeedMultiplier;
 
@@ -27,11 +27,11 @@ public sealed class Supernova : IStarModifier
     private readonly float StartingScale;
 
     private const float FlareWaveFrequency = 8f;
-    private const float FlareWaveAmplitude = .06f;
+    private const float FlareWaveAmplitude = 0.06f;
 
-    private static readonly Vector2 FlareSize = new(.16f, .27f);
+    private static readonly Vector2 FlareSize = new(.16f, 0.27f);
 
-    private const float GlowSize = .05f;
+    private const float GlowSize = 0.05f;
 
     #endregion
 
@@ -97,7 +97,7 @@ public sealed class Supernova : IStarModifier
         star.Scale = StartingScale * scaleMultiplier;
 
             // Start the 'explosion' halfway during the flare animation.
-        if (Contract >= .5f)
+        if (Contract >= 0.5f)
         {
             Expand += ExpandIncrement * SpeedMultiplier;
             Expand = Utilities.Saturate(Expand);
@@ -150,7 +150,7 @@ public sealed class Supernova : IStarModifier
     {
         Texture2D texture = StarTextures.FourPointedStar;
 
-        Vector2 origin = texture.Size() * .5f;
+        Vector2 origin = texture.Size() * 0.5f;
 
             // Pulse the flare out smoothly.
         float pulse = MathF.Sin(Contract * MathHelper.Pi);
@@ -174,7 +174,7 @@ public sealed class Supernova : IStarModifier
     {
         Texture2D texture = SkyTextures.SunBloom;
 
-        Vector2 origin = texture.Size() * .5f;
+        Vector2 origin = texture.Size() * 0.5f;
 
         float pulse = Easings.OutPolynomial(Expand, 2);
         scale *= pulse;

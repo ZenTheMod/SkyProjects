@@ -16,7 +16,7 @@ public static partial class Utilities
 
     public static Vector2 ScreenSize => new(Main.screenWidth, Main.screenHeight);
 
-    public static Vector2 HalfScreenSize => ScreenSize * .5f;
+    public static Vector2 HalfScreenSize => ScreenSize * 0.5f;
 
     extension(Main)
     {
@@ -33,7 +33,7 @@ public static partial class Utilities
     {
         int hour = (int)MathF.Floor(time % 24);
 
-        int minute = (int)MathF.Floor(time % 1 * 100 * .6f);
+        int minute = (int)MathF.Floor(time % 1 * 100 * 0.6f);
 
         DateTime date = new(1, 1, 1, hour, minute, 0);
 

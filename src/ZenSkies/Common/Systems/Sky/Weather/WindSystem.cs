@@ -9,16 +9,16 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.Default;
 using ZenSkies.Common.Config;
 using ZenSkies.Common.Systems.Compat;
+using ZenSkies.Core;
 using ZenSkies.Core.Particles;
 using ZenSkies.Core.Rendering;
-using ZenSkies.Core.Utils;
 
 namespace ZenSkies.Common.Systems.Weather;
 
 [Autoload(Side = ModSide.Client)]
 public static partial class WindSystem
 {
-    private const float wind_threshold = .17f;
+    private const float wind_threshold = 0.17f;
     private const float spawn_chance = 35f;
     private const int loop_chance = 10;
 
@@ -63,7 +63,7 @@ public static partial class WindSystem
 
         Vector2 screensize = Utilities.ScreenSize;
 
-        Rectangle spawn = new((int)(Main.screenPosition.X - screensize.X * Main.WindForVisuals * .5f), (int)Main.screenPosition.Y,
+        Rectangle spawn = new((int)(Main.screenPosition.X - screensize.X * Main.WindForVisuals * 0.5f), (int)Main.screenPosition.Y,
             (int)screensize.X, (int)screensize.Y);
 
         spawn.Inflate(offscreen_margin, offscreen_margin);
@@ -118,16 +118,16 @@ public record struct WindParticle : IParticle
 
     private const float width = 3.5f;
 
-    private const float lifetime_increment = .004f;
+    private const float lifetime_increment = 0.004f;
 
     private const float lifetime_multiplier = 7f;
 
-    private const float wave_frequency = .6f;
-    private const float wave_amplitude = .1f;
+    private const float wave_frequency = 0.6f;
+    private const float wave_amplitude = 0.1f;
 
-    private const float loop_range = .06f;
+    private const float loop_range = 0.06f;
 
-    private const float loop_max_offset = .3f;
+    private const float loop_max_offset = 0.3f;
 
     private const float velocity_magnitude = 13f;
 
@@ -177,10 +177,10 @@ public record struct WindParticle : IParticle
         // Loop behavior, similar to vanilla paper airplanes
         if (ShouldLoop)
         {
-            float range = loop_range / MathHelper.Clamp(MathF.Abs(Wind), .01f, 1);
-            range *= .5f;
+            float range = loop_range / MathHelper.Clamp(MathF.Abs(Wind), 0.01f, 1);
+            range *= 0.5f;
 
-            float offset = .5f + LoopOffset;
+            float offset = 0.5f + LoopOffset;
 
             float interpolator = Utils.Remap(Lifetime, offset - range, offset + range, 0f, 1f);
 

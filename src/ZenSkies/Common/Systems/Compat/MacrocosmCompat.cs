@@ -116,7 +116,7 @@ public sealed class MacrocosmSystem : ModSystem
 
             c.EmitDelegate((SpriteBatch spriteBatch) =>
             {
-                float alpha = MoonSky.ComputeBrightness(7200.0, 46800.0, .3f, 1f);
+                float alpha = MoonSky.ComputeBrightness(7200.0, 46800.0, 0.3f, 1f);
 
                 StarRendering.DrawStarsToSky(spriteBatch, alpha);
             });

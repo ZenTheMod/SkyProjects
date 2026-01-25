@@ -94,11 +94,11 @@ public static class TriangleStripBuilder
 
             if (i > 0 && widthAttenuation == StripWidthAttenuation.ContinuitySquared)
             {
-                float continuity = MathHelper.Clamp((Vector3.Dot(lastTangent, tangent) + 1f) * .5f, 0f, 1f);
+                float continuity = MathHelper.Clamp((Vector3.Dot(lastTangent, tangent) + 1f) * 0.5f, 0f, 1f);
                 width *= continuity * continuity;
             }
 
-            float halfWidth = width * .5f;
+            float halfWidth = width * 0.5f;
 
             Vector3 prevRight = segmentRights[Math.Max(i - 1, 0)];
             Vector3 nextRight = segmentRights[Math.Min(i, segmentCount - 1)];
@@ -265,8 +265,8 @@ public static class TriangleStripBuilder
 
     private static Vector3 Hermite(Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3, float t)
     {
-        Vector3 tan1 = (p2 - p0) * .5f;
-        Vector3 tan2 = (p3 - p1) * .5f;
+        Vector3 tan1 = (p2 - p0) * 0.5f;
+        Vector3 tan2 = (p3 - p1) * 0.5f;
 
         return Vector3.Hermite(p1, tan1, p2, tan2, t);
     }

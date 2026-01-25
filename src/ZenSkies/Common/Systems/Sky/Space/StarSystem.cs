@@ -29,7 +29,7 @@ public sealed class StarSystem : ModSystem, IPacketHandler
     private const float MainMenuDayRateDivisor = 10000f;
     private const float GameDayRateDivisor = 70000f;
     private const float GraveyardAlphaMultiplier = 1.4f;
-    private const float AtmosphereMultiplier = .43f;
+    private const float AtmosphereMultiplier = 0.43f;
 
     private const int DefaultStarGenerationSeed = 100;
 

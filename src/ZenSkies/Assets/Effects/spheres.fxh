@@ -60,7 +60,7 @@ float shadow(float3 sp, float shadowRotation)
 {
     float shad = dot(sp, mul(float3(0, 1, 0), rotateZ(TAU - PIOVER2 + shadowRotation)));
     
-    return outCubic(saturate(map(shad, -.05, .34, 0, 1)));
+    return outCubic(saturate(map(shad, -.05, 0.34, 0, 1)));
 }
 
 float4 atmo(float dist, float shad, float radius, float4 atmosphereColor, float4 atmosphereShadowColor, float range = 0)

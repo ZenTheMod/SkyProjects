@@ -13,8 +13,8 @@ namespace ZenSkies.Common.Systems.Sky;
 public sealed class FancyMeteor(Player player, FastRandom random)
     : AmbientSky.MeteorSkyEntity(player, random)
 {
-    private static readonly Vector4 start_color = new(.28f, .2f, 1f, 1f);
-    private static readonly Vector4 end_color = new(.9f, .2f, .1f, 1f);
+    private static readonly Vector4 start_color = new(.28f, 0.2f, 1f, 1f);
+    private static readonly Vector4 end_color = new(.9f, 0.2f, 0.1f, 1f);
 
     [OnLoad]
     private static void Load()
@@ -61,7 +61,7 @@ public sealed class FancyMeteor(Player player, FastRandom random)
         SkyEffects.Meteor.StartColor = start_color * alpha;
         SkyEffects.Meteor.EndColor = end_color * alpha;
 
-        SkyEffects.Meteor.Time = Main.GlobalTimeWrappedHourly * .3f;
+        SkyEffects.Meteor.Time = Main.GlobalTimeWrappedHourly * 0.3f;
 
         SkyEffects.Meteor.Scale = 5f;
 
@@ -71,9 +71,9 @@ public sealed class FancyMeteor(Player player, FastRandom random)
 
         Vector2 position = GetDrawPositionByDepth() - Main.Camera.UnscaledPosition;
 
-        Vector2 origin = new Vector2(.085f, .5f) * noise.Size();
+        Vector2 origin = new Vector2(.085f, 0.5f) * noise.Size();
 
-        Vector2 scale = new Vector2(2.5f, .18f) * (depthScale / Depth);
+        Vector2 scale = new Vector2(2.5f, 0.18f) * (depthScale / Depth);
 
         spriteBatch.Draw(noise, position, null, Color.White, Rotation + MathHelper.PiOver2, origin, scale, Effects, 0f);
 

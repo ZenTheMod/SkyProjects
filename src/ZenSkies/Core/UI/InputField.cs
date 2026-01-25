@@ -157,12 +157,12 @@ public class InputField : UIPanel
 
         Rectangle dims = this.Dimensions;
 
-        Vector2 position = new(Centered ? dims.Y + (dims.Height * .5f) : (dims.X + 6), dims.Y + (dims.Height * .5f) + 4);
+        Vector2 position = new(Centered ? dims.Y + (dims.Height * 0.5f) : (dims.X + 6), dims.Y + (dims.Height * 0.5f) + 4);
 
         Vector2 textSize = font.MeasureString(Text == string.Empty ? Hint : Text);
-        Vector2 origin = new(Centered ? textSize.X * .5f : 0, textSize.Y * .5f);
+        Vector2 origin = new(Centered ? textSize.X * 0.5f : 0, textSize.Y * 0.5f);
 
-        bool drawBlinker = IsWriting && Main.GlobalTimeWrappedHourly % .666f > .333f;
+        bool drawBlinker = IsWriting && Main.GlobalTimeWrappedHourly % 0.666f > 0.333f;
 
         if (Text == string.Empty)
             ChatManager.DrawColorCodedStringWithShadow(spriteBatch, font, Hint, position, Color.Gray, 0f, origin, Vector2.One);

@@ -42,25 +42,25 @@ float outCubic(float t)
 }
 float inOutCubic(float t)
 {
-    if (t < .5) 
-        return inCubic(t * 2) * .5;
-    return 1 - inCubic((1 - t) * 2) * .5;
+    if (t < 0.5) 
+        return inCubic(t * 2) * 0.5;
+    return 1 - inCubic((1 - t) * 2) * 0.5;
 }
 
     // https://bottosson.github.io/posts/oklab / https://www.shadertoy.com/view/ttcyRS
 static const float3x3 kCONEtoLMS = float3x3(
-         .4121656120, .2118591070, .0883097947,
-         .5362752080, .6807189584, .2818474174,
-         .0514575653, .1074065790, .6302613616);
+         0.4121656120, 0.2118591070, 0.0883097947,
+         0.5362752080, 0.6807189584, 0.2818474174,
+         0.0514575653, 0.1074065790, 0.6302613616);
     
 static const float3x3 kLMStoCONE = float3x3(
          4.0767245293, -1.2681437731, -.0041119885,
         -3.3072168827, 2.6093323231, -.7034763098,
-         .2307590544, -.3411344290, 1.7068625689);
+         0.2307590544, -.3411344290, 1.7068625689);
 
 float3 toOklab(float3 rgb)
 {
-    return pow(mul(kCONEtoLMS, rgb), .33333);
+    return pow(mul(kCONEtoLMS, rgb), 0.33333);
 }
 
 float3 toRGB(float3 oklab)
@@ -93,7 +93,7 @@ float3 RGBtoHCV(float3 rgb)
 {
         // RGB [0..1] to Hue-Chroma-Value [0..1]
         // Based on work by Sam Hocevar and Emil Persson
-    float4 p = (rgb.g < rgb.b) ? float4(rgb.bg, -1, .666) : float4(rgb.gb, 0, -.333);
+    float4 p = (rgb.g < rgb.b) ? float4(rgb.bg, -1, 0.666) : float4(rgb.gb, 0, -.333);
     float4 q = (rgb.r < p.x) ? float4(p.xyw, rgb.r) : float4(rgb.r, p.yzx);
     float c = q.x - min(q.w, q.y);
     float h = abs((q.w - q.y) / (6 * c + EPSILON) + q.z);
@@ -105,7 +105,7 @@ float3 HSLtoRGB(float3 hsl)
         // Hue-Saturation-Lightness [0..1] to RGB [0..1]
     float3 rgb = HUEtoRGB(hsl.x);
     float c = (1 - abs(2 * hsl.z - 1)) * hsl.y;
-    return (rgb - .5) * c + hsl.z;
+    return (rgb - 0.5) * c + hsl.z;
 }
 
 float3 RGBtoHSL(float3 rgb)
@@ -134,7 +134,7 @@ float coronaries(float2 uv, float time)
         float2 L = uv * s + j + a - time;
         a += cos(L);
         
-        res += (.5 + .5 * sin(L)) / s;
+        res += (.5 + 0.5 * sin(L)) / s;
         
         s *= 1.2;
     }

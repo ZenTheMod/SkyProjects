@@ -45,7 +45,7 @@ public class GradientElement : DropDownConfigElement<Gradient>
 
         Slider.Top.Set(BaseHeight + 5, 0f);
 
-        Slider.HAlign = .5f;
+        Slider.HAlign = 0.5f;
 
         Slider.Width.Set(-margin * 2, 1f);
 
@@ -71,7 +71,7 @@ public class GradientElement : DropDownConfigElement<Gradient>
 
         Picker.Left.Set(margin, 0f);
 
-        Picker.Width.Set(-margin, .5f);
+        Picker.Width.Set(-margin, 0.5f);
 
         Picker.Mute = true;
 
@@ -86,7 +86,7 @@ public class GradientElement : DropDownConfigElement<Gradient>
 
         Picker.Inputs.Top.Set(-inputsMargin, 1f);
 
-        Picker.Inputs.HAlign = .5f;
+        Picker.Inputs.HAlign = 0.5f;
 
         Picker.Inputs.Width.Set(-margin * 2, 1f);
 
@@ -98,9 +98,9 @@ public class GradientElement : DropDownConfigElement<Gradient>
 
         easings.Top.Set(topMargin, 0f);
 
-        easings.Left.Set(margin, .5f);
+        easings.Left.Set(margin, 0.5f);
 
-        easings.Width.Set(-margin * 2, .5f);
+        easings.Width.Set(-margin * 2, 0.5f);
 
         easings.Height.Set(-topMargin - inputsMargin - margin, 1f);
 

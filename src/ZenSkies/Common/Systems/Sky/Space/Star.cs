@@ -22,35 +22,35 @@ public record struct Star
     private static readonly Color HighTemperature = new(236, 238, 255);
     private static readonly Color HighestTemperature = new(113, 135, 255);
 
-    private const float MinScale = .3f;
+    private const float MinScale = 0.3f;
     private const float MaxScale = 1.25f;
 
     private const float MaxTwinkle = MathHelper.TwoPi;
 
     private const int StarStyles = 4;
 
-    private const float LowTempThreshold = .4f;
-    private const float HighTempThreshold = .6f;
+    private const float LowTempThreshold = 0.4f;
+    private const float HighTempThreshold = 0.6f;
 
-    private const float TwinkleTimeMultiplier = MathHelper.TwoPi * .35f;
+    private const float TwinkleTimeMultiplier = MathHelper.TwoPi * 0.35f;
 
-    private const float VanillaScale = .95f;
-    private const float VanillaTwinkleMin = .73f;
+    private const float VanillaScale = 0.95f;
+    private const float VanillaTwinkleMin = 0.73f;
     private const float VanillaTwinkleMax = 1.03f;
 
-    private const float DiamondSize = .124f;
-    private const float DiamondAlpha = .75f;
-    private const float DiamondTwinkleMin = .8f;
+    private const float DiamondSize = 0.124f;
+    private const float DiamondAlpha = 0.75f;
+    private const float DiamondTwinkleMin = 0.8f;
     private const float DiamondTwinkleMax = 1.2f;
 
-    private const float FlareSize = .14f;
-    private const float FlareInnerSize = .03f;
-    private const float FlareTwinkleMin = .85f;
+    private const float FlareSize = 0.14f;
+    private const float FlareInnerSize = 0.03f;
+    private const float FlareTwinkleMin = 0.85f;
     private const float FlareTwinkleMax = 1.45f;
 
-    private const float CircleSize = .3f;
-    private const float CircleAlpha = .67f;
-    private const float CircleTwinkleMin = .85f;
+    private const float CircleSize = 0.3f;
+    private const float CircleAlpha = 0.67f;
+    private const float CircleTwinkleMin = 0.85f;
     private const float CircleTwinkleMax = 1.3f;
 
     #endregion
@@ -74,7 +74,7 @@ public record struct Star
     public readonly void DrawVanilla(SpriteBatch spriteBatch, float alpha)
     {
         Texture2D texture = TextureAssets.Star[Style].Value;
-        Vector2 origin = texture.Size() * .5f;
+        Vector2 origin = texture.Size() * 0.5f;
 
         Vector2 position = Position;
 
@@ -84,7 +84,7 @@ public record struct Star
 
         float scale = Scale * VanillaScale * twinkle;
 
-        float rotation = (Main.GlobalTimeWrappedHourly * .1f * TwinklePhase) + Rotation;
+        float rotation = (Main.GlobalTimeWrappedHourly * 0.1f * TwinklePhase) + Rotation;
 
         spriteBatch.Draw(texture, position, null, color, rotation, origin, scale, SpriteEffects.None, 0f);
     }

@@ -127,7 +127,7 @@ public class UISlider : UIElement
     {
         Texture2D blip = BlipTexture.Value;
 
-        Vector2 blipOrigin = blip.Size() * .5f;
+        Vector2 blipOrigin = blip.Size() * 0.5f;
         Vector2 blipPosition = new(dims.X + ratio * dims.Width, dims.Center.Y);
 
         spriteBatch.Draw(blip, blipPosition, null, color, 0f, blipOrigin, 1f, 0, 0f);

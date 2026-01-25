@@ -47,7 +47,7 @@ public static class SkyColoration
             return;
         }
 
-        // TODO: Use a different value not based on stars.
+        // TODO: Use a different value not based on stars
         float interpolator = Easings.InCubic(StarSystem.StarAlpha);
 
         backgroundColor = Color.Lerp(Main.ColorOfTheSkies, Color.Black, interpolator);

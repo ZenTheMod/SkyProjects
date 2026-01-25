@@ -21,11 +21,11 @@ static const float4 explosionStart = float4(2, 2, 2, 1);
 
 float cloudMap(float2 uv, float dist)
 {
-    float2 off = tex2D(noise2, uv + (globalTime * .01)).rg;
+    float2 off = tex2D(noise2, uv + (globalTime * 0.01)).rg;
 	
-    uv *= .33;
+    uv *= 0.33;
     
-    float n = tex2D(noise1, offset + (uv / expand) + (float2(.09, .05) * off)).r * 1.55;
+    float n = tex2D(noise1, offset + (uv / expand) + (float2(.09, 0.05) * off)).r * 1.55;
 	
     dist *= 1.5;
 	
@@ -45,33 +45,33 @@ float4 nebula(float2 uv, float2 highlightDir, float dist)
     float cloud = n * n * 2.1 * invDecay;
     float cloudOffset = n * cloudMap(uv + highlightDir, dist).r * 2.1 * invDecay;
 
-    float cli = saturate(lerp(-.6, 1, .5 + 8 * ((cloud * 1.03) - (cloudOffset))) * (1 - (dist * 1.5)));
+    float cli = saturate(lerp(-.6, 1, 0.5 + 8 * ((cloud * 1.03) - (cloudOffset))) * (1 - (dist * 1.5)));
   
     float tc = saturate(cloud);
-    float satc = lerp(.9, .5, tc);
+    float satc = lerp(.9, 0.5, tc);
   
-    float3 colc = HSLtoRGB(float3(hue - pow(dist * n, 3.2) - (invDecay * .2), satc, .52)) + cli;
+    float3 colc = HSLtoRGB(float3(hue - pow(dist * n, 3.2) - (invDecay * 0.2), satc, 0.52)) + cli;
   
     tc *= tc;
 
-    float3 col = colc * .66;
+    float3 col = colc * 0.66;
     col *= tc;
 	
-    col = pow(saturate(col), .4545);
+    col = pow(saturate(col), 0.4545);
 	
-    return float4(col, (col.r + col.g + col.b) * .333);
+    return float4(col, (col.r + col.g + col.b) * 0.333);
 }
 
 float4 explosion(float2 uv, float dist, float4 exploColor)
 {
     float n = cloudMap(uv * expand, dist).r;
 	
-    float radius = outCubic(saturate(expand * .5)) + (n * n * expand) * (1 - dist) * expand;
+    float radius = outCubic(saturate(expand * 0.5)) + (n * n * expand) * (1 - dist) * expand;
 	
     radius += (1 - dist) * expand * 4.8;
     radius *= 1 - pow(expand, 2);
     
-    float4 explo = exploColor * (5 - inOutCubic(expand) * .7);
+    float4 explo = exploColor * (5 - inOutCubic(expand) * 0.7);
     
     return /*oklabL*/ lerp(float4(0, 0, 0, 0), explo, saturate(radius - dist - expand));
 }
@@ -84,7 +84,7 @@ float4 supernova(float2 uv)
     
     float4 expl = explosion(uv, dist, exploColor);
     
-    float4 neb = nebula(uv, -normalize(uv) * .07, dist);
+    float4 neb = nebula(uv, -normalize(uv) * 0.07, dist);
     
     neb *= inCubic(saturate(expand * 3));
     
@@ -97,7 +97,7 @@ float4 supernova(float2 uv)
 
 float4 PixelShaderFunction(float4 sampleColor : COLOR0, float2 screenPosition : SV_POSITION, float2 coords : TEXCOORD0) : COLOR0
 {
-    coords -= .5;
+    coords -= 0.5;
     
     float4 color = supernova(coords);
     

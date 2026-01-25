@@ -366,7 +366,7 @@ public static class Input
             Vector2 charSize = font.MeasureChar(c, first, lastKerning, out lastKerning);
 
             if (mousePosition.X >= position.X && mousePosition.X <= position.X + charSize.X)
-                hoveredChar = mousePosition.X >= position.X + (charSize.X * .5f) ? i + 1 : i;
+                hoveredChar = mousePosition.X >= position.X + (charSize.X * 0.5f) ? i + 1 : i;
 
             position.X += font.MeasureChar(c, first, lastKerning, out lastKerning).X;
             first = false;

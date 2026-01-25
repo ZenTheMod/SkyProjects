@@ -6,7 +6,6 @@ using ReLogic.Content;
 using System;
 using System.Linq;
 using Terraria.ModLoader;
-using ZenSkies.Common.DataStructures;
 using ZenSkies.Core;
 
 namespace ZenSkies.Common.Systems.Sky;

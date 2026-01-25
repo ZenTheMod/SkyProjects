@@ -166,7 +166,7 @@ public sealed class ColorSquare : UIElement
 
         Texture2D picker = UITextures.Dot;
 
-        Vector2 pickerOrigin = picker.Size() * .5f;
+        Vector2 pickerOrigin = picker.Size() * 0.5f;
 
         Vector2 position = PickerPosition * dims.Size();
         position += dims.Position();

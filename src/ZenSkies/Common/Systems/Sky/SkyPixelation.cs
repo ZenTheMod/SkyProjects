@@ -93,7 +93,7 @@ internal static class SkyPixelation
         {
             SkyManager.Instance.ResetDepthTracker();
 
-            SkyManager.Instance.DrawToDepth(Main.spriteBatch, float.MaxValue * .5f);
+            SkyManager.Instance.DrawToDepth(Main.spriteBatch, float.MaxValue * 0.5f);
 
             EndCapture();
         });

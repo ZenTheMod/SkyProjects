@@ -69,7 +69,7 @@ public static partial class Utilities
         Texture2D colorBar = TextureAssets.ColorBar.Value;
         Texture2D colorBarHighlight = TextureAssets.ColorHighlight.Value;
 
-        Rectangle rectangle = new((int)IngameOptions.valuePosition.X, (int)IngameOptions.valuePosition.Y - (int)(colorBar.Height * .5f), colorBar.Width, colorBar.Height);
+        Rectangle rectangle = new((int)IngameOptions.valuePosition.X, (int)IngameOptions.valuePosition.Y - (int)(colorBar.Height * 0.5f), colorBar.Width, colorBar.Height);
         destinationRectangle = rectangle;
 
         float x = rectangle.X + 5f;

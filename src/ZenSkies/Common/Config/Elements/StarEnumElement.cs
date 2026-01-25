@@ -74,7 +74,7 @@ internal sealed class StarEnumElement : ConfigElement<StarVisual>
         {
             DrawPanel2(spriteBatch, new(dims.X + dims.Width - dims.Height, dims.Y + 2), TextureAssets.SettingsPanel.Value, dims.Height - 4, dims.Height - 4, Color.Black);
 
-            display_star.Position = new(dims.X + dims.Width - (dims.Height * .5f) - 2, dims.Y + (dims.Height * .5f));
+            display_star.Position = new(dims.X + dims.Width - (dims.Height * 0.5f) - 2, dims.Y + (dims.Height * 0.5f));
 
             StarVisual style = Value;
 

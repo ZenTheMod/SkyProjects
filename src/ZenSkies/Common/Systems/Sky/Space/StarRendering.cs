@@ -57,7 +57,7 @@ public static class StarRendering
 
             case StarVisual.Diamond:
                 texture = StarTextures.DiamondStar;
-                origin = texture.Size() * .5f;
+                origin = texture.Size() * 0.5f;
 
                 for (int i = 0; i < activeStars.Length; i++)
                     activeStars[i].DrawDiamond(spriteBatch, texture, alpha, origin, rotation);
@@ -65,7 +65,7 @@ public static class StarRendering
 
             case StarVisual.FourPointed:
                 texture = StarTextures.FourPointedStar;
-                origin = texture.Size() * .5f;
+                origin = texture.Size() * 0.5f;
 
                 for (int i = 0; i < activeStars.Length; i++)
                     activeStars[i].DrawFlare(spriteBatch, texture, alpha, origin, rotation);
@@ -73,7 +73,7 @@ public static class StarRendering
 
             case StarVisual.OuterWilds:
                 texture = StarTextures.CircleStar;
-                origin = texture.Size() * .5f;
+                origin = texture.Size() * 0.5f;
 
                 for (int i = 0; i < activeStars.Length; i++)
                     activeStars[i].DrawCircle(spriteBatch, texture, alpha, origin, rotation);
@@ -103,21 +103,21 @@ public static class StarRendering
 
             case StarVisual.Diamond:
                 texture = StarTextures.DiamondStar;
-                origin = texture.Size() * .5f;
+                origin = texture.Size() * 0.5f;
 
                 star.DrawDiamond(spriteBatch, texture, alpha, origin, rotation);
                 return;
 
             case StarVisual.FourPointed:
                 texture = StarTextures.FourPointedStar;
-                origin = texture.Size() * .5f;
+                origin = texture.Size() * 0.5f;
 
                 star.DrawFlare(spriteBatch, texture, alpha, origin, rotation);
                 return;
 
             case StarVisual.OuterWilds:
                 texture = StarTextures.CircleStar;
-                origin = texture.Size() * .5f;
+                origin = texture.Size() * 0.5f;
 
                 star.DrawCircle(spriteBatch, texture, alpha, origin, rotation);
                 return;

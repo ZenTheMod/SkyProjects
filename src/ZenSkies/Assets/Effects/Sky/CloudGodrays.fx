@@ -20,7 +20,7 @@ float blur(float2 uv, float2 lightuv, int samples)
         // Use 1. to avoid integer division.
     float2 dtc = dir * (1. / samples);
     
-    float size = 3.9 / max(lightSize, .001);
+    float size = 3.9 / max(lightSize, 0.001);
     
     float occ = 0;
     
@@ -51,7 +51,7 @@ float light(float2 uv, float2 lightuv)
     
     float2 dir = (lightuv - uv) * screen;
     
-    float size = 3.9 / max(lightSize, .001);
+    float size = 3.9 / max(lightSize, 0.001);
     
     float light = saturate(length((lightuv - uv) * screen) * size);
     
@@ -63,7 +63,7 @@ float light(float2 uv, float2 lightuv)
 
 float4 SampledGodrays(float2 coords : TEXCOORD0, float4 sampleColor : COLOR0, float2 screenCoords : SV_POSITION) : COLOR0
 {
-    float2 bayeruv = frac(screenCoords.xy * .25) * 4;
+    float2 bayeruv = frac(screenCoords.xy * 0.25) * 4;
     
     float4 color = lightColor;
     
@@ -73,14 +73,14 @@ float4 SampledGodrays(float2 coords : TEXCOORD0, float4 sampleColor : COLOR0, fl
     color.a *= blur(uv, lightuv, sampleCount);
     
     if (useTexture)
-        color *= tex2D(Body, .5);
+        color *= tex2D(Body, 0.5);
     
     return color;
 }
 
 float4 SimpleLight(float2 coords : TEXCOORD0, float4 sampleColor : COLOR0, float2 screenCoords : SV_POSITION) : COLOR0
 {
-    float2 bayeruv = frac(screenCoords.xy * .25) * 4;
+    float2 bayeruv = frac(screenCoords.xy * 0.25) * 4;
     
     float4 color = lightColor;
     
@@ -90,7 +90,7 @@ float4 SimpleLight(float2 coords : TEXCOORD0, float4 sampleColor : COLOR0, float
     color.a *= light(uv, lightuv);
     
     if (useTexture)
-        color *= tex2D(Body, .5);
+        color *= tex2D(Body, 0.5);
     
     return color;
 }

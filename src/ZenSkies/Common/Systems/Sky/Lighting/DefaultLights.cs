@@ -94,7 +94,7 @@ public sealed class MoonLight : SkyLight
             color *= Utils.Remap(dist, fade_start, fade_end, 1f, 0f);
 
             // Decrease intensity based on moon phase
-            color *= MathF.Abs(4 - Main.moonPhase) * .25f;
+            color *= MathF.Abs(4 - Main.moonPhase) * 0.25f;
 
             color.A = byte.MaxValue;
 

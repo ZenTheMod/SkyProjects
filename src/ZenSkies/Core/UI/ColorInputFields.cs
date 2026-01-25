@@ -2,7 +2,6 @@
 using System;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
-using ZenSkies.Core.Utils;
 
 namespace ZenSkies.Core.UI;
 

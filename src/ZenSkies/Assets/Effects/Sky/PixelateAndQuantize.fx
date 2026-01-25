@@ -21,7 +21,7 @@ float4 PixelateAndQuantize(float4 sampleColor : COLOR0, float2 coords : TEXCOORD
     
     color.rgb = HSLtoRGB(color.rgb);
     
-    color.a = max(color.a, (color.r + color.g + color.b) * .333);
+    color.a = max(color.a, (color.r + color.g + color.b) * 0.333);
     
     return color;
 }

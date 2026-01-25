@@ -25,7 +25,7 @@ float4 planet(float2 uv, float dist, float3 sp, float shad)
 
 float4 PixelShaderFunction(float4 sampleColor : COLOR0, float2 coords : TEXCOORD0) : COLOR0
 {
-    float2 uv = (coords - .5) * 2;
+    float2 uv = (coords - 0.5) * 2;
     
     float dist = length(uv);
     
@@ -34,7 +34,7 @@ float4 PixelShaderFunction(float4 sampleColor : COLOR0, float2 coords : TEXCOORD
         float3 sp = sphere(uv, dist, 1);
         float shad = shadow(sp, shadowRotation);
 		
-        float4 color = atmo(dist, shad, radius, atmosphereColor == 0 ? tex2D(lightTexture, .5) : atmosphereColor, atmosphereShadowColor, 0);
+        float4 color = atmo(dist, shad, radius, atmosphereColor == 0 ? tex2D(lightTexture, 0.5) : atmosphereColor, atmosphereShadowColor, 0);
         
         color *= color.a;
         

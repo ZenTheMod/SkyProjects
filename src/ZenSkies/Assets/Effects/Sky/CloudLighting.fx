@@ -11,7 +11,7 @@ float3 lighting(float4 lightColor, float4 cloud)
     float shadows = 1 - cloud.r;
     
         // Combine the distance with the dark parts to make it look as if light is bleeding through.
-    float glow = ((shadows * 2.7) + (cloud.r * .65));
+    float glow = ((shadows * 2.7) + (cloud.r * 0.65));
     
     float4 inner = lightColor * glow;
     
@@ -35,7 +35,7 @@ float4 avgLight(float2 screenCoords)
     float4 right = tex2D(Light, uv - e.xz);
     float4 left = tex2D(Light, uv + e.xz);
     
-    return (center + up + down + right + left) * .2;
+    return (center + up + down + right + left) * 0.2;
 }
 
 float4 PixelShaderFunction(float2 coords : TEXCOORD0, float4 sampleColor : COLOR0, float2 screenCoords : SV_POSITION) : COLOR0

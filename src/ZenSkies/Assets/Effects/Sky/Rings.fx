@@ -9,7 +9,7 @@ float ShadowSize;
 
 float4 PixelShaderFunction(float4 sampleColor : COLOR0, float2 coords : TEXCOORD0) : COLOR0
 {
-    float2 center = float2(.5, .5);
+    float2 center = float2(.5, 0.5);
     
     float2 rotatedCoords = rotate(coords, center, uAngle);
     

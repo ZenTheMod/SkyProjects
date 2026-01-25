@@ -6,7 +6,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.Utilities;
-using ZenSkies.Core.Utils;
+using ZenSkies.Core;
 
 namespace ZenSkies.Common.DataStructures;
 
@@ -18,19 +18,19 @@ public record struct ShootingStar
 
     private const float WidthAmplitude = 1.3f;
 
-    private const float StarRatio = .15f;
+    private const float StarRatio = 0.15f;
 
-    private const float StarScale = .13f;
+    private const float StarScale = 0.13f;
 
-    private const float LifetimeIncrement = .007f;
+    private const float LifetimeIncrement = 0.007f;
 
     private const float MinVelocity = 3.1f;
     private const float MaxVelocity = 6.3f;
 
     private const float MinRotate = -.009f;
-    private const float MaxRotate = .009f;
+    private const float MaxRotate = 0.009f;
 
-    private const float VelocityDegrade = .97f;
+    private const float VelocityDegrade = 0.97f;
 
     private const float StarGameDistance = 4800f;
     private const float StarGameReflect = 10f;
@@ -108,7 +108,7 @@ public record struct ShootingStar
 
         Texture2D starTexture = StarTextures.FourPointedStar;
 
-        Vector2 starOrigin = starTexture.Size() * .5f;
+        Vector2 starOrigin = starTexture.Size() * 0.5f;
 
         Vector2 starPosition = positions[(int)(positions.Length * StarRatio)];
 
@@ -147,14 +147,14 @@ public record struct ShootingStar
     {
         Update();
 
-        if (Hit || Position.DistanceSQ(Utilities.MousePosition) >= StarGameDistance)
+        if (Hit || Position.DistanceSQ(Main.MousePosition) >= StarGameDistance)
             return;
 
         Main.starsHit++;
 
         float magnitude = Velocity.Length();
 
-        Velocity = Position - Utilities.MousePosition;
+        Velocity = Position - Main.MousePosition;
         Velocity = Vector2.Normalize(Velocity) * magnitude * StarGameReflect;
 
         Hit = true;
