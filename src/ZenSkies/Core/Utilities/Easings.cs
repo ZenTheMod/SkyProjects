@@ -85,8 +85,10 @@ public static class Easings
     };
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static float Ease(Style style, float t) =>
-        easing_functions[style](t);
+    public static float Ease(Style style, float t)
+    {
+        return easing_functions[style](t);
+    }
 
     #region Linear
 
