@@ -7,17 +7,15 @@ using Terraria.ModLoader;
 using ZenSkies.Common.Config;
 using ZenSkies.Common.Systems.Compat;
 using ZenSkies.Common.Systems.Sky.Space;
-using ZenSkies.Core.Utils;
+using ZenSkies.Core;
 using hook_ModifySunLightColor = Terraria.ModLoader.SystemLoader.DelegateModifySunLightColor;
 
 namespace ZenSkies.Common.Systems.Sky;
 
 [Autoload(Side = ModSide.Client)]
-public static class SkyLighting
+public static class SkyColoration
 {
-    private delegate void orig_ModifySunLightColor(ref Color tileColor, ref Color backgroundColor);
-
-    // Used for running certain ModSystem.ModifySunLightColor hooks on the menu.
+    // Used for running certain ModSystem.ModifySunLightColor hooks on the menu
     public static event hook_ModifySunLightColor? ModifyInMenu;
 
     [OnLoad]
@@ -56,9 +54,7 @@ public static class SkyLighting
         tileColor = Color.Lerp(Main.ColorOfTheSkies, Color.Black, interpolator);
     }
 
-    #region Sky lighting in menu
-
-    private static void ModifySunLightColor_MainMenu(orig_ModifySunLightColor orig, ref Color tileColor, ref Color backgroundColor)
+    private static void ModifySunLightColor_MainMenu(hook_ModifySunLightColor orig, ref Color tileColor, ref Color backgroundColor)
     {
         orig(ref tileColor, ref backgroundColor);
 
@@ -67,10 +63,6 @@ public static class SkyLighting
             ModifyInMenu?.Invoke(ref tileColor, ref backgroundColor);
         }
     }
-
-    #endregion
-
-    #region Tile lighting
 
     private static void DrawBlack_NonSolid(ILContext il)
     {
@@ -177,6 +169,4 @@ public static class SkyLighting
 
         c.EmitBrtrue(jumpColorCheckTarget);
     }
-
-    #endregion
 }

@@ -54,7 +54,7 @@ public sealed class RedSunSystem : ModSystem
     }
 
     public override void PostSetupContent() =>
-        SkyLighting.ModifyInMenu += ModContent.GetInstance<GeneralLighting>().ModifySunLightColor;
+        SkyColoration.ModifyInMenu += ModContent.GetInstance<GeneralLighting>().ModifySunLightColor;
 
     #region Drawing
 

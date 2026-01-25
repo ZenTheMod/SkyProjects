@@ -1,4 +1,5 @@
 ﻿using Daybreak.Common.Features.Hooks;
+using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +9,7 @@ using ZenSkies.Core.DataStructures;
 
 namespace ZenSkies.Core;
 
-/// <summary>
-/// Adds the decorated method to <see cref="ModCallLoader.handlers"/> under its name and <see cref="NameAliases"/> if provided.
-/// </summary>
+[MeansImplicitUse]
 [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
 public sealed class ModCallAttribute : Attribute
 {

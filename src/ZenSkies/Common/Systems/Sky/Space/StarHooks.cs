@@ -5,7 +5,7 @@ using System;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Terraria.Utilities;
-using ZenSkies.Core.ModCall;
+using ZenSkies.Core;
 
 namespace ZenSkies.Common.Systems.Sky.Space;
 

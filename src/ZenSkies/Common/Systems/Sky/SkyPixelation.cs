@@ -7,13 +7,13 @@ using Terraria.Graphics;
 using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
 using ZenSkies.Common.Config;
-using ZenSkies.Core.Utils;
+using ZenSkies.Core;
 using Daybreak.Common.Features.Hooks;
 
 namespace ZenSkies.Common.Systems.Sky;
 
 [Autoload(Side = ModSide.Client)]
-public static class PixelateSkySystem
+internal static class SkyPixelation
 {
     private static RenderTargetLease? rtLease;
     private static RenderTargetScope? rtScope;

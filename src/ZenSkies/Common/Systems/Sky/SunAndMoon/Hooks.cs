@@ -1,5 +1,6 @@
 ﻿using Daybreak.Common.Features.Hooks;
 using Daybreak.Common.Rendering;
+using Microsoft.CodeAnalysis;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -11,7 +12,7 @@ using ZenSkies.Core;
 namespace ZenSkies.Common.Systems.Sky;
 
 [Autoload(Side = ModSide.Client)]
-public static class SunAndMoonHooks
+public static partial class SunAndMoon
 {
     #region Sun
 
@@ -87,10 +88,10 @@ public static class SunAndMoonHooks
         public static void Invoke(
             SpriteBatch spriteBatch,
             GraphicsDevice device,
-            ref Vector2 position,
-            ref Color color,
-            ref float rotation,
-            ref float scale
+            Vector2 position,
+            Color color,
+            float rotation,
+            float scale
         )
         {
             Event?.Invoke(
@@ -112,6 +113,67 @@ public static class SunAndMoonHooks
     #endregion
 
     #region Moon
+
+    [AttributeUsage(AttributeTargets.Method)]
+    [HookMetadata(TypeContainingEvent = typeof(EventMoonActive), EventName = "Event", DelegateName = "Definition")]
+    public sealed class EventMoonActiveAttribute : SubscribesToAttribute;
+
+    public sealed class EventMoonActive
+    {
+        public delegate bool Definition();
+
+        [ModCall(nameof(EventMoonActive))]
+        public static bool Invoke()
+        {
+            bool ret = true;
+
+            if (Event is null)
+            {
+                return ret;
+            }
+
+            foreach (Definition handler in Event.GetInvocationList().Select(h => (Definition)h))
+            {
+                ret |= handler();
+            }
+
+            return ret;
+        }
+
+        [ModCall($"add_{nameof(EventMoonActive)}", $"Add{nameof(EventMoonActive)}")]
+        private static void Add(Definition action) => Event += action;
+
+        public static event Definition? Event;
+    }
+
+    [AttributeUsage(AttributeTargets.Method)]
+    [HookMetadata(TypeContainingEvent = typeof(ModifyMoonTexture), EventName = "Event", DelegateName = "Definition")]
+    public sealed class ModifyMoonTextureAttribute : SubscribesToAttribute;
+
+    public sealed class ModifyMoonTexture
+    {
+        public delegate void Definition(
+            ref Asset<Texture2D> moon,
+            bool eventMoon
+        );
+
+        [ModCall(nameof(ModifyMoonTexture))]
+        public static void Invoke(
+            ref Asset<Texture2D> moon,
+            bool eventMoon
+        )
+        {
+            Event?.Invoke(
+                ref moon,
+                eventMoon
+            );
+        }
+
+        [ModCall($"add_{nameof(ModifyMoonTexture)}", $"Add{nameof(ModifyMoonTexture)}")]
+        private static void Add(Definition action) => Event += action;
+
+        public static event Definition? Event;
+    }
 
     [AttributeUsage(AttributeTargets.Method)]
     [HookMetadata(TypeContainingEvent = typeof(PreDrawMoon), EventName = "Event", DelegateName = "Definition")]
@@ -256,7 +318,6 @@ public static class SunAndMoonHooks
             ref float scale,
             ref Color moonColor,
             ref Color shadowColor,
-            ref bool drawExtras,
             bool eventMoon
         );
 
@@ -271,7 +332,6 @@ public static class SunAndMoonHooks
             ref float scale,
             ref Color moonColor,
             ref Color shadowColor,
-            ref bool drawExtras,
             bool eventMoon
         )
         {
@@ -294,7 +354,6 @@ public static class SunAndMoonHooks
                     ref scale,
                     ref moonColor,
                     ref shadowColor,
-                    ref drawExtras,
                     eventMoon
                 );
             }
@@ -324,7 +383,6 @@ public static class SunAndMoonHooks
             float scale,
             Color moonColor,
             Color shadowColor,
-            bool drawExtras,
             bool eventMoon
         );
 
@@ -339,7 +397,6 @@ public static class SunAndMoonHooks
             float scale,
             Color moonColor,
             Color shadowColor,
-            bool drawExtras,
             bool eventMoon
         )
         {
@@ -353,7 +410,6 @@ public static class SunAndMoonHooks
                 scale,
                 moonColor,
                 shadowColor,
-                drawExtras,
                 eventMoon
             );
         }

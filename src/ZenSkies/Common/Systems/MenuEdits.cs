@@ -12,12 +12,12 @@ using Terraria.GameContent.Events;
 using Terraria.GameContent.Skies;
 using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
-using ZenSkies.Core.Utils;
+using ZenSkies.Core;
 
 namespace ZenSkies.Common.Systems;
 
 [Autoload(Side = ModSide.Client)]
-public static class Menu
+internal static class MenuEdits
 {
     [OnLoad]
     private static void Load()

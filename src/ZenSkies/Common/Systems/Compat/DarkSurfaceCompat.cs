@@ -32,6 +32,6 @@ public static class DarkSurfaceCompat
 
         ModSystem system = (ModSystem)Utilities.GetInstance(darkSurfaceSystem);
 
-        SkyLighting.ModifyInMenu += system.ModifySunLightColor;
+        SkyColoration.ModifyInMenu += system.ModifySunLightColor;
     }
 }

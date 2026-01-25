@@ -10,7 +10,7 @@ using ZenSkies.Core;
 using ZenSkies.Core.Exceptions;
 using ZenSkies.Core.ModCall;
 using ZenSkies.Core.Utils;
-using static ZenSkies.Common.Systems.Sky.Lighting.SkyLightSystem;
+using static ZenSkies.Common.Systems.Sky.Lighting.SkyLighting;
 
 namespace ZenSkies.Common.Systems.Sky.Weather;
 
