@@ -15,7 +15,7 @@ using ZenSkies.Common.Config;
 using ZenSkies.Common.Systems.Sky.Space;
 using ZenSkies.Common.Systems.Weather;
 using ZenSkies.Core.Particles;
-using ZenSkies.Core.Utils;
+using ZenSkies.Core;
 using Star = ZenSkies.Common.Systems.Sky.Space.Star;
 
 namespace ZenSkies.Content.UI;

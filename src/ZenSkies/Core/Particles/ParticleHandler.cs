@@ -2,7 +2,7 @@
 using System;
 using System.Linq;
 
-namespace ZenSkies.Core.Particles;
+namespace ZenSkies.Core;
 
 public class ParticleHandler<T> where T : struct, IParticle
 {

@@ -4,35 +4,39 @@ using System.Linq;
 
 namespace ZenSkies.Core.DataStructures;
 
-public class AliasedList<TKey, TElement> 
-    : List<(HashSet<TKey> Keys, List<TElement> Items)>
+public class AliasedList<TKey, TElement> : List<(HashSet<TKey> Keys, List<TElement> Items)>
 {
     public List<TElement> this[TKey name] 
     {
         get
         {
             if (!TryFind(name, out List<TElement> elements))
+            {
                 throw new KeyNotFoundException();
+            }
 
             return elements;
         }
     }
 
-    public AliasedList()
-        : base() { }
+    public AliasedList() : base()
+    { }
 
-    public AliasedList(IEnumerable<TElement> items, Func<TElement, TKey> nameFunc)
-        : base()
+    public AliasedList(IEnumerable<TElement> items, Func<TElement, TKey> nameFunc) : base()
     {
         foreach (TElement item in items)
+        {
             Add(nameFunc(item), item);
+        }
     }
 
     public AliasedList(IEnumerable<TElement> items, Func<TElement, HashSet<TKey>> nameFunc)
         : base()
     {
         foreach (TElement item in items)
+        {
             Add(nameFunc(item), [item]);
+        }
     }
 
     /// <summary>
@@ -44,24 +48,25 @@ public class AliasedList<TKey, TElement>
         int inList = FindIndex(e => e.Keys.Contains(key));
 
         if (inList != -1)
+        {
             this[inList].Items.Add(item);
+        }
         else
+        {
             Add(([key], [item]));
+        }
 
         return inList == -1;
     }
 
     /// <inheritdoc cref="Add(TKey, TElement)"/>
-    public bool Add(TKey key, List<TElement> items) =>
-       Add([key], items);
+    public bool Add(TKey key, List<TElement> items) => Add([key], items);
 
     /// <inheritdoc cref="Add(TKey, TElement)"/>
-    public bool Add(IEnumerable<TKey> key, List<TElement> items) =>
-        Add([.. key], items);
+    public bool Add(IEnumerable<TKey> key, List<TElement> items) => Add([.. key], items);
 
     /// <inheritdoc cref="Add(TKey, TElement)"/>
-    public bool Add(HashSet<TKey> keys, TElement item) =>
-        Add(keys, [item]);
+    public bool Add(HashSet<TKey> keys, TElement item) => Add(keys, [item]);
 
     /// <inheritdoc cref="Add(TKey, TElement)"/>
     public bool Add(HashSet<TKey> keys, List<TElement> items)
@@ -69,9 +74,13 @@ public class AliasedList<TKey, TElement>
         int inList = FindIndex(e => keys.All(k => e.Keys.Contains(k)));
 
         if (inList != -1)
+        {
             this[inList].Items.AddRange(items);
+        }
         else
+        {
             Add((keys, items));
+        }
 
         return inList == -1;
     }

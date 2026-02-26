@@ -1,39 +1,37 @@
 ﻿using Daybreak.Common.Features.Hooks;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 
-namespace ZenSkies.Core.Net;
+namespace ZenSkies.Core;
 
 public static class NetMessageHooks
 {
-    #region Public Hooks
+    [AttributeUsage(AttributeTargets.Method)]
+    [HookMetadata(TypeContainingEvent = typeof(OnSyncWorldData), EventName = "Event", DelegateName = "Definition")]
+    public sealed class OnSyncWorldDataAttribute : SubscribesToAttribute;
 
-    public delegate void hook_OnSyncWorldData(int toClient, int ignoreClient);
-
-    public static event hook_OnSyncWorldData? OnSyncWorldData;
-
-    #endregion
-
-    #region Loading
-
-    [OnLoad]
-    public static void Load() =>
-        On_NetMessage.SendData += InvokeMethods;
-
-    [OnUnload]
-    public static void Unload()
+    public sealed class OnSyncWorldData
     {
-        OnSyncWorldData = null;
+        public delegate void Definition(int toClient, int ignoreClient);
 
-        On_NetMessage.SendData -= InvokeMethods;
+        public static void Invoke(int toClient, int ignoreClient)
+        {
+            Event?.Invoke(toClient, ignoreClient);
+        }
+
+        public static event Definition? Event;
     }
 
-    #endregion
+    [OnLoad]
+    private static void Load()
+    {
+        On_NetMessage.SendData += InvokeMethods;
+    }
 
-    #region Private Methods
-
-    private static void InvokeMethods(On_NetMessage.orig_SendData orig,
+    private static void InvokeMethods(
+        On_NetMessage.orig_SendData orig,
         int msgType,
         int remoteClient,
         int ignoreClient,
@@ -44,13 +42,14 @@ public static class NetMessageHooks
         float number4,
         int number5,
         int number6,
-        int number7)
+        int number7
+    )
     {
         orig(msgType, remoteClient, ignoreClient, text, number, number2, number3, number4, number5, number6, number7);
 
         if (msgType == MessageID.WorldData)
-            OnSyncWorldData?.Invoke(remoteClient, ignoreClient);
+        {
+            OnSyncWorldData.Invoke(remoteClient, ignoreClient);
+        }
     }
-
-    #endregion
 }

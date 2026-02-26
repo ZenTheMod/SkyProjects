@@ -5,7 +5,7 @@ using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.UI;
-using ZenSkies.Core.Utils;
+using ZenSkies.Core;
 
 namespace ZenSkies.Core.UI;
 
@@ -87,7 +87,7 @@ public class UISlider : UIElement
 
         if (IsHeld)
         {
-            float num = Utilities.UIMousePosition.X - dims.X;
+            float num = Main.UIMousePosition.X - dims.X;
             Ratio = Utilities.Saturate(num / dims.Width);
         }
     }

@@ -3,30 +3,19 @@ using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ZenSkies.Core.Utils;
 
-namespace ZenSkies.Core.Net;
+namespace ZenSkies.Core;
 
 public sealed class PacketSystem : ModSystem
 {
-    #region Public Properties
-
     public static PacketSystem Instance =>
         ModContent.GetInstance<PacketSystem>();
 
     public static List<IPacketHandler> Handlers { get; }
         = [];
 
-    #endregion
-
-    #region Loading
-
     public override void PostSetupContent() =>
         Handlers.AddRange(Utilities.GetAllInstancesOf<IPacketHandler>(Mod.Code));
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// Writes this <see cref="IPacketHandler"/> over the network to clients or the server.<br/>
@@ -51,16 +40,19 @@ public sealed class PacketSystem : ModSystem
         int index = Handlers.FindIndex(h => h.GetType() == typeof(T));
 
         if (index == -1)
+        {
             throw new KeyNotFoundException($"Could not find '{typeof(T).FullName}' in '{nameof(Handlers)}!'");
+        }
 
         Send(Instance.Mod, index, toClient, ignoreClient);
     }
 
     public static void Handle(Mod mod, BinaryReader reader, int whoAmI)
     {
-        if (Main.netMode == NetmodeID.SinglePlayer ||
-            !mod.IsNetSynced)
+        if (Main.netMode == NetmodeID.SinglePlayer || !mod.IsNetSynced)
+        {
             return;
+        }
 
         int index = reader.ReadInt32();
 
@@ -71,10 +63,6 @@ public sealed class PacketSystem : ModSystem
         if (Main.netMode == NetmodeID.Server)
             Send(mod, index, ignoreClient: whoAmI);
     }
-
-    #endregion
-
-    #region Private Methods
 
     private static void Send(Mod mod, int index, int toClient = -1, int ignoreClient = -1)
     {
@@ -90,6 +78,4 @@ public sealed class PacketSystem : ModSystem
 
         packet.Send(toClient, ignoreClient);
     }
-
-    #endregion
 }

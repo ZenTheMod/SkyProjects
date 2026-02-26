@@ -5,15 +5,31 @@ using System.Collections.Generic;
 
 namespace ZenSkies.Core.Rendering;
 
-    // Watered down version of Vermin's triangle strip implementation.
-        // Unsure if I want to implement their mesh system in full.
+// Watered down version of Vermin/Syrup's triangle strip implementation;
+// may be potentially obsolete if rendering is merged into DAYBREAK?
+public enum StripCurveType : byte
+{
+    Linear,
+    CatmullRom,
+    CubicBezier,
+    Hermite
+}
+
+public enum StripJoinStyle : byte
+{
+    Perpendicular,
+    Miter
+}
+
+public enum StripWidthAttenuation : byte
+{
+    None,
+    ContinuitySquared
+}
+
 public static class TriangleStripBuilder
 {
-    #region Private Fields
-
-    private const float Epsilon = 1e-6f;
-
-    #endregion
+    private const float epsilon = 1e-6f;
 
     public static VertexPositionColorTexture[] BuildPath(
         IReadOnlyList<Vector3> path,
@@ -23,10 +39,13 @@ public static class TriangleStripBuilder
         StripJoinStyle joinStyle = StripJoinStyle.Miter,
         int smoothingSubdivisions = 0,
         StripCurveType curveType = StripCurveType.CatmullRom,
-        StripWidthAttenuation widthAttenuation = StripWidthAttenuation.ContinuitySquared)
+        StripWidthAttenuation widthAttenuation = StripWidthAttenuation.ContinuitySquared
+    )
     {
         if (path.Count < 2)
+        {
             throw new ArgumentException("At least two points are required.", nameof(path));
+        }
 
         IReadOnlyList<Vector3> workingPath = SmoothPath(path, smoothingSubdivisions, curveType);
 
@@ -35,10 +54,12 @@ public static class TriangleStripBuilder
         VertexPositionColorTexture[] vertices = new VertexPositionColorTexture[workingPath.Count * 2];
 
         if (vertices.Length > short.MaxValue)
+        {
             throw new InvalidOperationException("Strip produced more vertices than supported by the index buffer.");
+        }
 
         Vector3 up = upHint ?? Vector3.UnitZ;
-        Vector3 upNormalized = up.LengthSquared() < Epsilon ? Vector3.UnitZ : Vector3.Normalize(up);
+        Vector3 upNormalized = up.LengthSquared() < epsilon ? Vector3.UnitZ : Vector3.Normalize(up);
 
         int segmentCount = workingPath.Count - 1;
 
@@ -49,16 +70,23 @@ public static class TriangleStripBuilder
         {
             Vector3 dir = workingPath[i + 1] - workingPath[i];
 
-            if (dir.LengthSquared() < Epsilon)
+            if (dir.LengthSquared() < epsilon)
+            {
                 dir = i > 0 ? segmentDirs[i - 1] : Vector3.UnitY;
+            }
 
             dir.Normalize();
 
             Vector3 right = Vector3.Cross(upNormalized, dir);
-            if (right.LengthSquared() < Epsilon)
+
+            if (right.LengthSquared() < epsilon)
+            {
                 right = FindPerpendicular(dir);
+            }
             else
+            {
                 right.Normalize();
+            }
 
             segmentDirs[i] = dir;
             segmentRights[i] = right;
@@ -77,17 +105,26 @@ public static class TriangleStripBuilder
             Vector3 nextDir = segmentDirs[Math.Min(i, segmentCount - 1)];
 
             Vector3 tangent;
+
             if (i == 0)
+            {
                 tangent = nextDir;
+            }
             else if (i == segmentCount)
+            {
                 tangent = prevDir;
+            }
             else
             {
                 tangent = prevDir + nextDir;
-                if (tangent.LengthSquared() < Epsilon)
+                if (tangent.LengthSquared() < epsilon)
+                {
                     tangent = nextDir;
+                }
                 else
+                {
                     tangent.Normalize();
+                }
             }
 
             float width = baseWidth;
@@ -116,19 +153,27 @@ public static class TriangleStripBuilder
                 Vector3 joinNormal;
 
                 if (i == 0)
+                {
                     joinNormal = nextRight;
+                }
                 else if (i == segmentCount)
+                {
                     joinNormal = prevRight;
+                }
                 else
                 {
                     joinNormal = prevRight + nextRight;
 
-                    if (joinNormal.LengthSquared() < Epsilon)
+                    if (joinNormal.LengthSquared() < epsilon)
+                    {
                         joinNormal = nextRight;
+                    }
                 }
 
-                if (joinNormal.LengthSquared() < Epsilon)
+                if (joinNormal.LengthSquared() < epsilon)
+                {
                     joinNormal = Vector3.UnitY;
+                }
 
                 joinNormal.Normalize();
 
@@ -156,7 +201,9 @@ public static class TriangleStripBuilder
     private static IReadOnlyList<Vector3> RemoveDegenerates(IReadOnlyList<Vector3> path)
     {
         if (path.Count < 2)
+        {
             return path;
+        }
 
         List<Vector3> result = new(path.Count);
 
@@ -166,7 +213,7 @@ public static class TriangleStripBuilder
 
         for (int i = 1; i < path.Count; i++)
         {
-            if (Vector3.DistanceSquared(last, path[i]) <= Epsilon)
+            if (Vector3.DistanceSquared(last, path[i]) <= epsilon)
                 continue;
 
             last = path[i];
@@ -174,7 +221,9 @@ public static class TriangleStripBuilder
         }
 
         if (result.Count == 1)
+        {
             result.Add(path[path.Count - 1]);
+        }
 
         return result;
     }
@@ -190,7 +239,7 @@ public static class TriangleStripBuilder
             progress[i] = cumulative;
         }
 
-        if (cumulative > Epsilon)
+        if (cumulative > epsilon)
         {
             float inv = 1f / cumulative;
 
@@ -208,10 +257,14 @@ public static class TriangleStripBuilder
     private static IReadOnlyList<Vector3> SmoothPath(IReadOnlyList<Vector3> path, int subdivisions, StripCurveType curveType)
     {
         if (subdivisions <= 0 || path.Count < 2)
+        {
             return path;
+        }
 
         List<Vector3> result = new((path.Count - 1) * (subdivisions + 1) + 1)
-            { path[0] };
+        {
+            path[0]
+        };
 
         for (int i = 0; i < path.Count - 1; i++)
         {
@@ -235,20 +288,19 @@ public static class TriangleStripBuilder
         return RemoveDegenerates(result);
     }
 
-    private static Vector3 EvaluateCurve(StripCurveType curveType, Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3, float t, int count) =>
-        curveType switch
+    private static Vector3 EvaluateCurve(StripCurveType curveType, Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3, float t, int count)
+    {
+        return curveType switch
         {
-            StripCurveType.CatmullRom when count >= 4 =>
-                Vector3.CatmullRom(p0, p1, p2, p3, t),
+            StripCurveType.CatmullRom when count >= 4 => Vector3.CatmullRom(p0, p1, p2, p3, t),
 
-            StripCurveType.CubicBezier when count >= 4 =>
-                CubicBezier(p0, p1, p2, p3, t),
+            StripCurveType.CubicBezier when count >= 4 => CubicBezier(p0, p1, p2, p3, t),
 
-            StripCurveType.Hermite when count >= 4 =>
-                Hermite(p0, p1, p2, p3, t),
+            StripCurveType.Hermite when count >= 4 => Hermite(p0, p1, p2, p3, t),
 
             _ => Vector3.Lerp(p1, p2, t)
         };
+    }
 
     private static Vector3 CubicBezier(Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3, float t)
     {
@@ -281,8 +333,10 @@ public static class TriangleStripBuilder
 
         Vector3 perpendicular = Vector3.Cross(vector, axis);
 
-        if (perpendicular.LengthSquared() < Epsilon)
+        if (perpendicular.LengthSquared() < epsilon)
+        {
             perpendicular = Vector3.Cross(vector, Vector3.UnitZ);
+        }
 
         perpendicular.Normalize();
 
@@ -291,19 +345,27 @@ public static class TriangleStripBuilder
 
     private static Vector3 ComputeMiterOffset(Vector3 prevNormal, Vector3 nextNormal, bool isStart, bool isEnd, float halfWidth)
     {
-        if (halfWidth <= Epsilon)
+        if (halfWidth <= epsilon)
+        {
             return Vector3.Zero;
+        }
 
         if (isStart)
+        {
             return nextNormal * halfWidth;
+        }
         if (isEnd)
+        {
             return prevNormal * halfWidth;
+        }
 
         float prevLenSq = prevNormal.LengthSquared();
         float nextLenSq = nextNormal.LengthSquared();
 
-        if (prevLenSq < Epsilon || nextLenSq < Epsilon)
+        if (prevLenSq < epsilon || nextLenSq < epsilon)
+        {
             return (nextLenSq >= prevLenSq ? nextNormal : prevNormal) * halfWidth;
+        }
 
         Vector3 sum = prevNormal + nextNormal;
 
@@ -327,7 +389,9 @@ public static class TriangleStripBuilder
         float maxScale = halfWidth * MiterLimit;
 
         if (MathF.Abs(scale) > maxScale)
+        {
             scale = MathF.Sign(scale) * maxScale;
+        }
 
         return miter * scale;
     }

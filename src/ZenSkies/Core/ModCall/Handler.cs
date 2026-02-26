@@ -11,14 +11,14 @@ namespace ZenSkies.Core;
 
 [MeansImplicitUse]
 [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
-public sealed class ModCallAttribute : Attribute
+internal sealed class ModCallAttribute : Attribute
 {
     public bool UsesDefaultName = true;
 
-    public string[] NameAliases;
+    public string[] NameAliases = [];
 
-    public ModCallAttribute() =>
-        NameAliases = [];
+    public ModCallAttribute()
+    { }
 
     public ModCallAttribute(params string[] nameAliases) : this(false, nameAliases)
     { }
@@ -30,8 +30,23 @@ public sealed class ModCallAttribute : Attribute
     }
 }
 
-public static class ModCallLoader
+internal static class ModCallLoader
 {
+    private sealed class ModCallHandlers : AliasedList<string, MethodInfo>
+    {
+        public object? Invoke(string name, object?[]? args)
+        {
+            int matching = this[name].FindIndex(m => m.MatchesParameters(args));
+
+            if (matching != -1)
+            {
+                return this[name][matching]?.Invoke(null, args);
+            }
+
+            throw new ArgumentException($"No suitable method matching {args} was found!");
+        }
+    }
+
     private static readonly ModCallHandlers handlers = [];
 
     [OnLoad]
@@ -77,7 +92,7 @@ public static class ModCallLoader
         }
         catch (KeyNotFoundException)
         {
-            throw new ArgumentException($"{name} does not match any known method alias!");
+            throw new ArgumentException($"ModCall \"{name}\" does not match any method alias!");
         }
     }
 }

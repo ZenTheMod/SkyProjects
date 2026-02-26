@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
-namespace ZenSkies.Core.Particles;
+namespace ZenSkies.Core;
 
 public interface IParticle
 {
