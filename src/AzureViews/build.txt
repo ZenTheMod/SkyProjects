@@ -1,0 +1,10 @@
+displayName = Azure Views
+author = Zoey, Sprunolia, Vermin, flye
+version = 1.0.0.0
+side = NoSync
+
+modReferences = Daybreak@2.3.0
+
+buildIgnore = .tml-build\*, lib\*, .idea\*, .vs\*, *.tmp, Assets\Effects\Compiler\*, Properties\*, *.csproj, *.user, obj\*, bin\*, *.config, LICENSE, .editorconfig, TemplateEngineHost\*
+
+homepage = https://github.com/gold-meridian/sky-projects
